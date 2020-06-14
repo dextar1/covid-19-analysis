@@ -1,30 +1,40 @@
+from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 
-# making sparksession object
-spark = SparkSession.builder.appName('Covid-19').getOrCreate()
+def main():
 
-# load data into spark dataframe
-####################################
-df = spark.read.format("csv").option("header", "true").load("time_series_19-covid-Confirmed_archived_0325.csv")
+    # making sparksession object
+    conf = SparkConf().setAppName('Covid-19')
+    sc = SparkContext(conf=conf)
+    sc.setLogLevel("ERROR")
+    spark = SparkSession(sc)
 
-
-# prepare data
-####################################
-df = df.filter(col("Country/Region") == "Australia")
-columns_to_drop = ['Country/Region','Province/State', 'Lat', 'Long', '1/22/20','1/23/20','1/24/20','1/25/20','1/26/20','1/27/20','1/28/20','1/29/20','1/30/20','1/31/20','3/22/20','3/23/20']
-df = df.drop(*columns_to_drop)
-# df.show()
+    # load data into spark dataframe
+    ####################################
+    df = spark.read.format("csv").option("header", "true").load("time_series_19-covid-Confirmed_archived_0325.csv")
 
 
-# clean data
-####################################
+    # prepare data
+    ####################################
+    df = df.filter(col("Country/Region") == "Australia")
+    columns_to_drop = ['Country/Region','Province/State', 'Lat', 'Long', '1/22/20','1/23/20','1/24/20','1/25/20','1/26/20','1/27/20','1/28/20','1/29/20','1/30/20','1/31/20','3/22/20','3/23/20']
+    df = df.drop(*columns_to_drop)
+    df.show()
+
+
+    # clean data
+    ####################################
 
 
 
-# linear regression
-####################################
+    # linear regression
+    ####################################
 
 
-# visualize results
-####################################
+    # visualize results
+    ####################################
+
+
+if __name__ == "__main__":
+    main()
