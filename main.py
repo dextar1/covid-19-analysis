@@ -25,8 +25,8 @@ def main():
     # sum up all rows data into 1 row
     # df.select(F.sum("2/1/20").alias('2/1/20'),
     # F.sum("2/2/20")).show()  # its todo
-    i = 0
-    new_df = df.select([F.sum(c) for c in df.columns])
+    new_df = df.select([F.sum(value).alias(str(index))
+                        for index, value in enumerate(df.columns)]).show()
     new_df.show()
     # if want to save to a csv
     # new_df.write.option('header', 'true').csv('data.csv')
