@@ -79,7 +79,7 @@ def main():
     x1 = [c[0] for c in av_list]
     y1 = [c[1] for c in av_list]
     x2 = [c[0] for c in predicted_values]
-    y2 = [c[0] for c in predicted_values]
+    y2 = [c[1] for c in predicted_values]
     plt.plot(x1,y1)
     plt.plot(x2,y2)
     plt.show()
