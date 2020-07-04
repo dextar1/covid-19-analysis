@@ -43,7 +43,7 @@ def main():
     featureassembler = VectorAssembler(inputCols=["index_double"],outputCol="new_index")
     output=featureassembler.transform(df_s)
     full_data = output.select("new_index","Infections")
-    test_data = full_data.where(F.col('index_double') > 0)
+    test_data = full_data.where(F.col('index_double') > 49)
     train_data = full_data.where(F.col('index_double') < 50)
     train_data.show(50)
     test_data.show()
